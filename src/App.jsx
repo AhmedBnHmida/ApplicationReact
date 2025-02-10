@@ -6,6 +6,8 @@ import Counter from './CounterC';
 import CounterF from './CounterF';
 import Pokemon from './Pokemon';
 import ListManager from './ListManager';
+import Evaluation from './Evaluation';
+import ToDo from './ToDo';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +25,13 @@ function App() {
       <ListManager 
         initialItems={["React", "Angular", "VueJs"]} 
         placeholder="Ajouter un nouvel élément..."
+      />
+      <Evaluation initialNotes={[15, 20, 8]} />
+      <ToDo 
+        initialTask={[
+          { task: 'Terminer projet', priority: 'Haute', isCompleted: false },
+          { task: 'Terminer tâche', priority: 'Moyenne', isCompleted: false }
+        ]} 
       />
       <Pokemon />
       <Footer />
