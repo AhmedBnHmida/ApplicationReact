@@ -3,10 +3,19 @@ import data from '../assets/data/events.json'
 import Header from "../Header";
 
 import { useState , useEffect } from "react";
+import { getallEvents } from "../services/api";
 const Events = () => {
     const [events,setEvents] = useState([]);
+ //   const [eventList, setEventList] = useState([]);
+
+
     useEffect((()=>{
-        setEvents(data);
+        const fetchEvents = async () => {
+          const result = await getallEvents();
+          setEvents(result.data);
+
+        }
+       fetchEvents();
     }),[])
     const handleClick = (name) => {
         setEvents(events.map((event) =>

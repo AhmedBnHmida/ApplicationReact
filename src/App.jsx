@@ -18,6 +18,7 @@ import NotFound from './components/NotFound'
 import NavigationBar from './components/NavigationBar'
 //import EventDetails from './components/EventDetails'
 import React from 'react'
+import EventForm from './components/Eventform'
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -46,6 +47,7 @@ const EventDetails = React.lazy(() => import('./components/EventDetails'));
      <Route path='/ajoutEvent' element={<AjouterEvent />} />
      <Route path='/by/price/:price' element={<EventPrice />} />
      <Route path='/events/:name' element={<EventDetails />} />
+     <Route path='/events/form' element={<EventForm />} />
      <Route path='*' element={<NotFound />} />
      <Route exact path='/' element={<Home />} />
      </Routes>
