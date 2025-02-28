@@ -11,46 +11,57 @@ const ToDo = ({ initialTask }) => {
   };
 
   const handleTerminate = (index) => {
-    setTasks(tasks.map((task, i) => 
-      i === index ? { ...task, isCompleted: !task.isCompleted } : task
-    ));
+    const updatedTasks = tasks.map((task, i) => {
+      if (i === index) {
+        const isCompleted = !task.isCompleted;
+        return {
+          ...task,
+          isCompleted,
+          color: isCompleted ? "#99ff99" : ""
+        };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
   };
 
   const handleAddTask = () => {
-    if (taskInput.trim() !== "") {
-      setTasks([...tasks, {
-        task: taskInput.trim(),
-        priority: priorityInput,
-        isCompleted: false
-      }]);
+    if (taskInput !== "") {
+      setTasks([
+        ...tasks,
+        {
+          task: taskInput,
+          priority: priorityInput,
+          isCompleted: false,
+          color: ""
+        }
+      ]);
       setTaskInput(""); 
       setPriorityInput("Basse"); 
     }
   };
-
   const filteredTasks = tasks.filter((task) =>
     task.task.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
   return (
     <>
       <ul>
         {filteredTasks.map((item, index) => (
-          <li key={index} style={{ backgroundColor: item.isCompleted ? "#99ff99" : "" }}>
+          <li key={index} style={{ backgroundColor: item.color }}>
             {item.task} : {item.priority}
             <button onClick={() => handleTerminate(index)}>
-              {item.isCompleted ? "Non Terminé" : "Terminer"}
+              {item.isCompleted ? "Non Terminer" : "Terminer"}
             </button>
             <button onClick={() => handleDelete(index)}>Supprimer</button>
           </li>
         ))}
       </ul>
-      <h3>Total des tâches : {tasks.length}</h3>
-      <h4>Total des tâches terminées : {tasks.filter(task => task.isCompleted).length}</h4>
+      <h3>Total des taches : {tasks.length}</h3>
+      <h4>Total des taches terminées : {tasks.filter(task => task.isCompleted).length}</h4>
 
       <input
         type='text'
-        placeholder='Ajouter une tâche'
+        placeholder='Ajouter une tache'
         value={taskInput}
         onChange={(e) => setTaskInput(e.target.value)} 
       />
@@ -65,11 +76,10 @@ const ToDo = ({ initialTask }) => {
         <option value="Basse">Basse</option>
       </select>
 
-      <button onClick={handleAddTask}>Ajouter une tâche</button>
-
+      <button onClick={handleAddTask}>Ajouter une tache</button>
       <input
         type="text"
-        placeholder="Rechercher une tâche"
+        placeholder="Rechercher une tache"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)} 
       />
